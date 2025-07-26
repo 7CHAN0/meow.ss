@@ -42,10 +42,16 @@
             padding: 40px 20px;
         }
 
-        .theme-switcher {
+        .controls {
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .theme-switcher, .language-switcher {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -55,7 +61,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 100;
         }
 
         .avatar-container {
@@ -139,21 +144,29 @@
                 width: 100px;
                 height: 100px;
             }
+            .controls {
+                flex-direction: column;
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="theme-switcher" id="themeSwitcher">🌓</div>
+    <div class="controls">
+        <div class="language-switcher" id="languageSwitcher">EN</div>
+        <div class="theme-switcher" id="themeSwitcher">🌓</div>
+    </div>
 
     <div class="avatar-container">
         <img src="img/1.png" alt="Meliska" class="avatar">
     </div>
 
-    <h1>Meliska</h1>
-    <div class="subtitle">фембой • геймер • стример</div>
+    <h1 id="title">Meliska</h1>
+    <div class="subtitle" id="subtitle">фембой • геймер • стример</div>
 
-    <div class="bio">
+    <div class="bio" id="bio">
         Привет~ 💖 Люблю игры, аниме и всё милое.  
         Пиши если хочешь пообщаться или поиграть вместе!
     </div>
@@ -168,21 +181,22 @@
     </div>
 
     <div class="section">
-        <div class="section-title">ИНТЕРЕСЫ</div>
-        <p>🌸 MEOW :3</p>
-        <p>🎮 CS2, DOTA2, GMOD, TF2</p>
-        <p>🎵 Меломан слушаю все</p>
+        <div class="section-title" id="interests-title">ИНТЕРЕСЫ</div>
+        <p id="interests-content">🌸 MEOW :3</p>
+        <p id="games">🎮 CS2, DOTA2, GMOD, TF2</p>
+        <p id="music">🎵 Меломан слушаю все</p>
     </div>
 
     <div class="section">
-        <div class="section-title">О СЕБЕ</div>
-        <p>18 лет</p>
-        <p>Люблю технику (пк,телефоны, т.п)</p>
-        <p>Коллекционирую милые вещи</p>
+        <div class="section-title" id="about-title">О СЕБЕ</div>
+        <p id="age">18 лет</p>
+        <p id="tech">Люблю технику (пк,телефоны, т.п)</p>
+        <p id="collection">Коллекционирую милые вещи</p>
     </div>
 
     <script>
         const themeSwitcher = document.getElementById('themeSwitcher');
+        const languageSwitcher = document.getElementById('languageSwitcher');
         const htmlElement = document.documentElement;
         
         // Проверяем сохранённую тему
@@ -190,6 +204,13 @@
         if (savedTheme) {
             htmlElement.setAttribute('data-theme', savedTheme);
             themeSwitcher.textContent = savedTheme === 'dark' ? '🌞' : '🌙';
+        }
+        
+        // Проверяем сохранённый язык
+        const savedLang = localStorage.getItem('lang');
+        if (savedLang === 'en') {
+            switchToEnglish();
+            languageSwitcher.textContent = 'RU';
         }
         
         // Переключатель темы
@@ -205,6 +226,45 @@
                 localStorage.setItem('theme', 'dark');
             }
         });
+        
+        // Переключатель языка
+        languageSwitcher.addEventListener('click', () => {
+            if (languageSwitcher.textContent === 'EN') {
+                switchToEnglish();
+                localStorage.setItem('lang', 'en');
+                languageSwitcher.textContent = 'RU';
+            } else {
+                switchToRussian();
+                localStorage.setItem('lang', 'ru');
+                languageSwitcher.textContent = 'EN';
+            }
+        });
+        
+        function switchToEnglish() {
+            document.getElementById('subtitle').textContent = 'femboy • gamer • streamer';
+            document.getElementById('bio').innerHTML = 'Hello~ 💖 I love games, anime and all things cute.<br>Write if you want to chat or play together!';
+            document.getElementById('interests-title').textContent = 'INTERESTS';
+            document.getElementById('interests-content').textContent = '🌸 MEOW :3';
+            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2';
+            document.getElementById('music').textContent = '🎵 Music lover, I listen to everything';
+            document.getElementById('about-title').textContent = 'ABOUT ME';
+            document.getElementById('age').textContent = '18 years old';
+            document.getElementById('tech').textContent = 'I love technology (PC, phones, etc.)';
+            document.getElementById('collection').textContent = 'Collecting cute things';
+        }
+        
+        function switchToRussian() {
+            document.getElementById('subtitle').textContent = 'фембой • геймер • стример';
+            document.getElementById('bio').innerHTML = 'Привет~ 💖 Люблю игры, аниме и всё милое.<br>Пиши если хочешь пообщаться или поиграть вместе!';
+            document.getElementById('interests-title').textContent = 'ИНТЕРЕСЫ';
+            document.getElementById('interests-content').textContent = '🌸 MEOW :3';
+            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2';
+            document.getElementById('music').textContent = '🎵 Меломан слушаю все';
+            document.getElementById('about-title').textContent = 'О СЕБЕ';
+            document.getElementById('age').textContent = '18 лет';
+            document.getElementById('tech').textContent = 'Люблю технику (пк,телефоны, т.п)';
+            document.getElementById('collection').textContent = 'Коллекционирую милые вещи';
+        }
     </script>
 </body>
 </html>
