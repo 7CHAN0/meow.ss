@@ -3,161 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>about me</title>
+    <title>Meliska</title>
     <style>
-        /* Базовые сбросы */
+        :root {
+            /* Светлая тема по умолчанию */
+            --bg: #fafafa;
+            --text: #333333;
+            --accent: #ff85b8;
+            --card-bg: #ffe6ef;
+            --border: #e0e0e0;
+            --section-title: #ff85b8;
+        }
+
+        [data-theme="dark"] {
+            --bg: #111111;
+            --text: #e0e0e0;
+            --accent: #ff85b8;
+            --card-bg: #2a1a22;
+            --border: #333333;
+            --section-title: #ff85b8;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #000;
-            color: #fff;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Основная структура */
-        .container {
-            max-width: 800px;
+            font-weight: 300;
+            max-width: 600px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-        
-        header::after {
-            content: "";
-            display: block;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
-            margin: 30px auto;
-        }
-        
-        /* Типографика */
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 0.5rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        h2 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 0.2rem;
-            opacity: 0.8;
-            margin-bottom: 40px;
-        }
-        
-        .bio {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto 40px;
-            text-align: center;
-            opacity: 0.9;
-        }
-        
-        /* Социальные иконки */
-        .social-links {
+
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 25px;
+            cursor: pointer;
+            z-index: 100;
         }
-        
-        .social-links a {
-            color: #fff;
-            font-size: 1.5rem;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 3px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
-        .social-links a:hover {
-            opacity: 1;
-        }
-        
-        /* Декоративные элементы */
-        .divider {
+
+        .avatar {
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-            margin: 50px 0;
+            height: 100%;
+            object-fit: cover;
         }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+            color: var(--accent);
+            text-align: center;
         }
-        
-        header, .bio, .social-links {
-            animation: fadeIn 1s ease-out forwards;
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            text-align: center;
         }
-        
+
         .bio {
-            animation-delay: 0.2s;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
         }
-        
-        .social-links {
-            animation-delay: 0.4s;
+
+        .links {
+            margin: 40px 0;
         }
-        
-        /* Адаптивность */
+
+        .link {
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background-color: var(--bg);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            color: var(--section-title);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-                letter-spacing: 0.3rem;
+            body {
+                padding: 30px 15px;
             }
-            
-            h2 {
-                font-size: 1rem;
-            }
-            
-            .bio {
-                font-size: 1rem;
+            .avatar-container {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Meliska</h1>
-            <h2>18 y.o. • silly • cyber kotleta
+    <div class="theme-switcher" id="themeSwitcher">🌓</div>
 
-            </h2>
-        </header>
-        
-        <p class="bio">
-            Привет! 😊 Если хочешь пообщаться — пиши. А если любишь игры — добавляй в Steam, играю во всякое. 🎮✨
-        </p>
-        
-        <div class="divider"></div>
-        
-        <div class="social-links">
-            <a href="https://t.me/logicavreda" title="Telegram">TELEGRAM</a>
-            <a href="https://t.me/meliska_i" title="Telegram">TG ACC</a>
-            <a href="https://discordapp.com/users/532553985760952321" title="Discord">DISCORD</a>
-            <a href="https://steamcommunity.com/id/JestolHoles" title="Steam">STEAM MAIN</a>
-            <a href="https://steamcommunity.com/id/meliska_i" title="Steam">STEAM ALT</a>
-            <a href="https://www.twitch.tv/baw_j" title="Twitch">TWITCH</a>
-        </div>
+    <div class="avatar-container">
+        <img src="img/1.png" alt="Meliska" class="avatar">
     </div>
+
+    <h1>Meliska</h1>
+    <div class="subtitle">фембой • геймер • стример</div>
+
+    <div class="bio">
+        Привет~ 💖 Люблю игры, аниме и всё милое.  
+        Пиши если хочешь пообщаться или поиграть вместе!
+    </div>
+
+    <div class="links">
+        <a href="https://t.me/logicavreda" class="link">Telegram</a>
+        <a href="https://discordapp.com/users/532553985760952321" class="link">Discord</a>
+        <a href="https://steamcommunity.com/id/JestolHoles" class="link">Steam</a>
+        <a href="https://www.twitch.tv/baw_j" class="link">Twitch</a>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ИНТЕРЕСЫ</div>
+        <p>🌸 Cyberpunk 2077</p>
+        <p>🎮 Valorant</p>
+        <p>🎵 Phonk/Synthwave</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">О СЕБЕ</div>
+        <p>18 лет</p>
+        <p>Люблю технологии</p>
+        <p>Коллекционирую милые вещи</p>
+    </div>
+
+    <script>
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        const htmlElement = document.documentElement;
+        
+        // Проверяем сохранённую тему
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            themeSwitcher.textContent = savedTheme === 'dark' ? '🌞' : '🌙';
+        }
+        
+        // Переключатель темы
+        themeSwitcher.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                htmlElement.removeAttribute('data-theme');
+                themeSwitcher.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeSwitcher.textContent = '🌞';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
