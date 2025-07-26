@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about me</title>
+    <style>
+        /* Базовые сбросы */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Основная структура */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        header::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+            margin: 30px auto;
+        }
+        
+        /* Типографика */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.2rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        /* Социальные иконки */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            color: #fff;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Декоративные элементы */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            margin: 50px 0;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header, .bio, .social-links {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .bio {
+            animation-delay: 0.2s;
+        }
+        
+        .social-links {
+            animation-delay: 0.4s;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 0.3rem;
+            }
+            
+            h2 {
+                font-size: 1rem;
+            }
+            
+            .bio {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Meliska</h1>
+            <h2>18 y.o. • silly • cyber kotleta
+
+            </h2>
+        </header>
+        
+        <p class="bio">
+            Привет! 😊 Если хочешь пообщаться — пиши. А если любишь игры — добавляй в Steam, играю во всякое. 🎮✨
+        </p>
+        
+        <div class="divider"></div>
+        
+        <div class="social-links">
+            <a href="https://t.me/logicavreda" title="Telegram">TELEGRAM</a>
+            <a href="https://discordapp.com/users/532553985760952321" title="Discord">DISCORD</a>
+            <a href="https://steamcommunity.com/id/JestolHoles" title="Steam">STEAM MAIN</a>
+            <a href="https://steamcommunity.com/id/meliska_i" title="Steam">STEAM ALT</a>
+            <a href="https://t.me/meliska_i" title="Telegram">TG ACC</a>
+        </div>
+    </div>
+</body>
+</html>
