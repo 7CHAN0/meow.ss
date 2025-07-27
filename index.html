@@ -136,6 +136,24 @@
             letter-spacing: 1px;
         }
 
+        .visitor-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .visitor-counter::before {
+            content: "👀";
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 30px 15px;
@@ -149,6 +167,10 @@
                 top: 10px;
                 right: 10px;
             }
+            .visitor-counter {
+                bottom: 10px;
+                right: 10px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
@@ -158,6 +180,8 @@
         <div class="language-switcher" id="languageSwitcher">EN</div>
         <div class="theme-switcher" id="themeSwitcher">🌓</div>
     </div>
+
+    <div class="visitor-counter" id="visitorCounter">Загрузка...</div>
 
     <div class="avatar-container">
         <img src="img/1.png" alt="Meliska" class="avatar">
@@ -197,6 +221,7 @@
     <script>
         const themeSwitcher = document.getElementById('themeSwitcher');
         const languageSwitcher = document.getElementById('languageSwitcher');
+        const visitorCounter = document.getElementById('visitorCounter');
         const htmlElement = document.documentElement;
         
         // Проверяем сохранённую тему
@@ -211,6 +236,40 @@
         if (savedLang === 'en') {
             switchToEnglish();
             languageSwitcher.textContent = 'RU';
+        }
+        
+        // Счётчик посещений
+        async function updateVisitorCounter() {
+            try {
+                // Используем localStorage для хранения счётчика (альтернатива - серверный счётчик)
+                let count = localStorage.getItem('visitorCount');
+                
+                if (!count) {
+                    count = 1;
+                } else {
+                    count = parseInt(count) + 1;
+                }
+                
+                localStorage.setItem('visitorCount', count);
+                
+                // Форматируем число (1000 -> 1K)
+                const formattedCount = formatNumber(count);
+                
+                if (savedLang === 'en') {
+                    visitorCounter.textContent = `${formattedCount} views`;
+                } else {
+                    visitorCounter.textContent = `${formattedCount} просмотров`;
+                }
+            } catch (error) {
+                visitorCounter.textContent = savedLang === 'en' ? 'Views counter' : 'Счётчик просмотров';
+            }
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
         }
         
         // Переключатель темы
@@ -238,6 +297,7 @@
                 localStorage.setItem('lang', 'ru');
                 languageSwitcher.textContent = 'EN';
             }
+            updateVisitorCounter(); // Обновляем текст счётчика при смене языка
         });
         
         function switchToEnglish() {
@@ -265,6 +325,9 @@
             document.getElementById('tech').textContent = 'Люблю технику (пк,телефоны, т.п)';
             document.getElementById('collection').textContent = 'Коллекционирую милые вещи';
         }
+        
+        // Инициализация счётчика
+        updateVisitorCounter();
     </script>
 </body>
 </html>
