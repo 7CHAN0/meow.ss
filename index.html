@@ -1,32 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meliska</title>
+    <title>Meliska ~(=^･ω･^)ﾉ</title>
     <style>
         :root {
-            /* Светлая тема */
-            --bg: #fff0f5;
-            --text: #330033;
-            --accent: #ff2d96;
-            --accent-dark: #d4006e;
-            --card-bg: #ffd6f0;
-            --border: #ff99d1;
-            --section-title: #ff0066;
-            --glow: rgba(255, 45, 150, 0.2);
+            /* Обновлённая светлая тема - ещё более пастельная */
+            --bg: #fffaf5;
+            --text: #5a3d5c;
+            --accent: #ff85a2;
+            --accent-dark: #e25d7f;
+            --card-bg: #ffeef8;
+            --border: #ffc2d6;
+            --section-title: #ff6b9d;
+            --glow: rgba(255, 133, 162, 0.25);
+            --heart: #ff6b9d;
         }
 
         [data-theme="dark"] {
-            /* Тёмная тема */
-            --bg: #1a0e14;
-            --text: #f0e6eb;
-            --accent: #ff66b3;
-            --accent-dark: #cc0088;
-            --card-bg: #2a1a22;
-            --border: #4d263d;
-            --section-title: #ff80b3;
-            --glow: rgba(255, 102, 179, 0.3);
+            /* Тёмная тема - мягкий фиолетовый */
+            --bg: #241b2e;
+            --text: #f8e0f0;
+            --accent: #d68fd6;
+            --accent-dark: #b76eb8;
+            --card-bg: #352a43;
+            --border: #5d447a;
+            --section-title: #e2a4e2;
+            --glow: rgba(214, 143, 214, 0.3);
+            --heart: #ff85d3;
         }
 
         * {
@@ -36,7 +39,8 @@
             transition: 
                 background-color 0.5s ease,
                 color 0.3s ease,
-                border-color 0.5s ease;
+                border-color 0.5s ease,
+                transform 0.3s ease;
         }
 
         body {
@@ -49,8 +53,39 @@
             margin: 0 auto;
             padding: 40px 20px;
             background-image: 
-                radial-gradient(circle at 20% 30%, var(--glow) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, var(--glow) 0%, transparent 30%);
+                radial-gradient(circle at 15% 25%, var(--glow) 0%, transparent 35%),
+                radial-gradient(circle at 85% 75%, var(--glow) 0%, transparent 35%),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5,5 C5,5 10,2 10,7 C10,2 15,5 15,5 C15,5 12,10 15,10 C15,10 10,10 10,15 C10,10 5,10 5,10 C5,10 8,5 5,5z' fill='%23ffc2d6' opacity='0.1'/%3E%3C/svg%3E");
+        }
+
+        /* Анимированные сердечки */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 16px;
+            color: var(--heart);
+            opacity: 0;
+            animation: floatHeart 15s linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* Кнопки управления */
@@ -79,30 +114,46 @@
         }
 
         .theme-switcher:hover, .language-switcher:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(10deg);
             box-shadow: 0 0 15px var(--glow);
             color: var(--accent);
         }
 
-        /* Аватар */
+        /* Аватар с милой рамкой */
         .avatar-container {
-            width: 140px;
-            height: 140px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             margin: 0 auto 25px;
             overflow: hidden;
             border: 3px solid var(--accent);
             box-shadow: 
-                0 0 20px var(--glow),
-                0 4px 20px rgba(0, 0, 0, 0.2);
+                0 0 25px var(--glow),
+                0 4px 20px rgba(0, 0, 0, 0.15);
             transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .avatar-container::before {
+            content: 'ฅ^•ﻌ•^ฅ';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            z-index: 2;
+            white-space: nowrap;
         }
 
         .avatar-container:hover {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(5deg);
             box-shadow: 
-                0 0 30px var(--glow),
-                0 6px 25px rgba(0, 0, 0, 0.3);
+                0 0 35px var(--glow),
+                0 6px 25px rgba(0, 0, 0, 0.2);
         }
 
         .avatar {
@@ -113,18 +164,33 @@
         }
 
         .avatar-container:hover .avatar {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         /* Заголовки */
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 500;
             margin-bottom: 5px;
             color: var(--accent);
             text-align: center;
-            text-shadow: 0 0 5px var(--glow);
+            text-shadow: 0 0 8px var(--glow);
             letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h1::after {
+            content: '☆';
+            margin-left: 8px;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .subtitle {
@@ -140,23 +206,31 @@
         .bio {
             margin-bottom: 40px;
             line-height: 1.8;
-            padding: 20px;
+            padding: 25px;
             background-color: var(--card-bg);
-            border-radius: 12px;
-            border-left: 4px solid var(--accent);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             position: relative;
+            overflow: hidden;
         }
 
-        .bio::after {
+        .bio::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-            opacity: 0.3;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffc2e4, var(--accent));
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Ссылки */
@@ -164,40 +238,88 @@
             margin: 40px 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
 
         .link {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             color: var(--text);
             text-decoration: none;
-            padding: 14px 20px;
+            padding: 16px 25px;
             background-color: var(--card-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            border-radius: 15px;
+            border: 2px solid var(--border);
             transition: all 0.3s ease;
-            text-align: center;
             font-weight: 400;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
         }
 
         .link:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.02);
             border-color: var(--accent);
             color: var(--accent);
             box-shadow: 
-                0 5px 15px var(--glow),
-                0 3px 10px rgba(0, 0, 0, 0.1);
+                0 7px 20px var(--glow),
+                0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .link:hover::before {
+            left: 100%;
+        }
+
+        /* Иконки для ссылок */
+        .link-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .link:hover .link-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         /* Секции */
         .section {
             margin: 45px 0;
-            padding: 20px;
+            padding: 25px;
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .section::after {
+            content: '♪';
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
 
         .section-title {
@@ -209,15 +331,29 @@
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .section-title::before {
             content: '';
-            width: 20px;
-            height: 2px;
-            background: var(--section-title);
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--section-title), transparent);
             display: inline-block;
+            border-radius: 2px;
+        }
+
+        .section p {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            position: relative;
+        }
+
+        .section p::before {
+            content: '⋆';
+            position: absolute;
+            left: -10px;
+            color: var(--accent);
         }
 
         /* Адаптивность */
@@ -226,16 +362,17 @@
                 padding: 30px 15px;
                 background-image: 
                     radial-gradient(circle at 10% 20%, var(--glow) 0%, transparent 40%),
-                    radial-gradient(circle at 90% 80%, var(--glow) 0%, transparent 40%);
+                    radial-gradient(circle at 90% 80%, var(--glow) 0%, transparent 40%),
+                    url("data:image/svg+xml,%3Csvg width='15' height='15' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5,5 C5,5 10,2 10,7 C10,2 15,5 15,5 C15,5 12,10 15,10 C15,10 10,10 10,15 C10,10 5,10 5,10 C5,10 8,5 5,5z' fill='%23ffc2d6' opacity='0.1'/%3E%3C/svg%3E");
             }
             
             .avatar-container {
-                width: 120px;
-                height: 120px;
+                width: 130px;
+                height: 130px;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .controls {
@@ -246,8 +383,11 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
     <div class="controls">
         <div class="language-switcher" id="languageSwitcher">EN</div>
         <div class="theme-switcher" id="themeSwitcher">🌓</div>
@@ -258,36 +398,71 @@
     </div>
 
     <h1 id="title">Meliska</h1>
-    <div class="subtitle" id="subtitle">геймер • стример</div>
+    <div class="subtitle" id="subtitle">геймер • стример • милашка ♡</div>
 
     <div class="bio" id="bio">
-        Привет~ 💖 Люблю игры, аниме и всё милое.<br>Пиши если хочешь пообщаться или поиграть вместе!
+        Привет~ 💖 Люблю игры, аниме и всё милое. (>^ω^<)<br>
+        Пиши если хочешь пообщаться или поиграть вместе! ヾ(≧▽≦*)o
     </div>
 
     <div class="links">
-        <a href="https://t.me/logicavreda" class="link">𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠</a>
-        <a href="https://t.me/meliska_i" class="link">𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠 𝗔𝗖𝗖</a>
-        <a href="https://discordapp.com/users/532553985760952321" class="link">𝗗𝗜𝗦𝗖𝗢𝗥𝗗</a>
-        <a href="https://steamcommunity.com/id/JestolHoles" class="link">𝗦𝗧𝗘𝗔𝗠 𝗠𝗔𝗜𝗡</a>
-        <a href="https://steamcommunity.com/id/meliska_i" class="link">𝗦𝗧𝗘𝗔𝗠 𝗔𝗟𝗧</a>
-        <a href="https://www.twitch.tv/baw_j" class="link">𝗧𝗪𝗜𝗧𝗖𝗛</a>
+        <a href="https://t.me/logicavreda" class="link">
+            <span class="link-icon"><i class="fab fa-telegram"></i></span>
+            <span>𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠</span>
+        </a>
+        <a href="https://t.me/meliska_i" class="link">
+            <span class="link-icon"><i class="fas fa-user-circle"></i></span>
+            <span>𝗧𝗘𝗟𝗘𝗚𝗥𝗔𝗠 𝗔𝗖𝗖</span>
+        </a>
+        <a href="https://discordapp.com/users/532553985760952321" class="link">
+            <span class="link-icon"><i class="fab fa-discord"></i></span>
+            <span>𝗗𝗜𝗦𝗖𝗢𝗥𝗗</span>
+        </a>
+        <a href="https://steamcommunity.com/id/JestolHoles" class="link">
+            <span class="link-icon"><i class="fab fa-steam"></i></span>
+            <span>𝗦𝗧𝗘𝗔𝗠 𝗠𝗔𝗜𝗡</span>
+        </a>
+        <a href="https://steamcommunity.com/id/meliska_i" class="link">
+            <span class="link-icon"><i class="fab fa-steam-symbol"></i></span>
+            <span>𝗦𝗧𝗘𝗔𝗠 𝗔𝗟𝗧</span>
+        </a>
+        <a href="https://www.twitch.tv/baw_j" class="link">
+            <span class="link-icon"><i class="fab fa-twitch"></i></span>
+            <span>𝗧𝗪𝗜𝗧𝗖𝗛</span>
+        </a>
     </div>
 
     <div class="section">
         <div class="section-title" id="interests-title">ИНТЕРЕСЫ</div>
-        <p id="interests-content">🌸 MEOW :3</p>
-        <p id="games">🎮 CS2, DOTA2, GMOD, TF2</p>
-        <p id="music">🎵 Меломан слушаю все</p>
+        <p id="interests-content">🌸 MEOW :3 ~(=^･ω･^)ﾉ</p>
+        <p id="games">🎮 CS2, DOTA2, GMOD, TF2 ♪(´▽｀)</p>
+        <p id="music">🎵 Меломан слушаю все ~ ♫</p>
     </div>
 
     <div class="section">
         <div class="section-title" id="about-title">О СЕБЕ</div>
-        <p id="age">18 лет</p>
-        <p id="tech">Люблю технику (пк,телефоны, т.п)</p>
-        <p id="collection">Коллекционирую милые вещи</p>
+        <p id="age">18 лет ✧◝(⁰▿⁰)◜✧</p>
+        <p id="tech">Люблю технику (пк,телефоны, т.п) (￣ω￣)</p>
+        <p id="collection">Коллекционирую милые вещи ₍˄·͈༝·͈˄₎◞</p>
     </div>
 
     <script>
+        // Создаем плавающие сердечки
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '♥';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 10 + 12) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
         const themeSwitcher = document.getElementById('themeSwitcher');
         const languageSwitcher = document.getElementById('languageSwitcher');
         const htmlElement = document.documentElement;
@@ -334,30 +509,33 @@
         });
         
         function switchToEnglish() {
-            document.getElementById('subtitle').textContent = 'gamer • streamer';
-            document.getElementById('bio').innerHTML = 'Hello~ 💖 I love games, anime and all things cute.<br>Write if you want to chat or play together!';
+            document.getElementById('subtitle').textContent = 'gamer • streamer • cutie ♡';
+            document.getElementById('bio').innerHTML = 'Hello~ 💖 I love games, anime and all things cute. (>^ω^<)<br>Write if you want to chat or play together! ヾ(≧▽≦*)o';
             document.getElementById('interests-title').textContent = 'INTERESTS';
-            document.getElementById('interests-content').textContent = '🌸 MEOW :3';
-            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2';
-            document.getElementById('music').textContent = '🎵 Music lover, I listen to everything';
+            document.getElementById('interests-content').textContent = '🌸 MEOW :3 ~(=^･ω･^)ﾉ';
+            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2 ♪(´▽｀)';
+            document.getElementById('music').textContent = '🎵 Music lover, I listen to everything ~ ♫';
             document.getElementById('about-title').textContent = 'ABOUT ME';
-            document.getElementById('age').textContent = '18 years old';
-            document.getElementById('tech').textContent = 'I love technology (PC, phones, etc.)';
-            document.getElementById('collection').textContent = 'Collecting cute things';
+            document.getElementById('age').textContent = '18 years old ✧◝(⁰▿⁰)◜✧';
+            document.getElementById('tech').textContent = 'I love technology (PC, phones, etc.) (￣ω￣)';
+            document.getElementById('collection').textContent = 'Collecting cute things ₍˄·͈༝·͈˄₎◞';
         }
         
         function switchToRussian() {
-            document.getElementById('subtitle').textContent = 'геймер • стример•';
-            document.getElementById('bio').innerHTML = 'Привет~ 💖 Люблю игры, аниме и всё милое.<br>Пиши если хочешь пообщаться или поиграть вместе!';
+            document.getElementById('subtitle').textContent = 'геймер • стример • милашка ♡';
+            document.getElementById('bio').innerHTML = 'Привет~ 💖 Люблю игры, аниме и всё милое. (>^ω^<)<br>Пиши если хочешь пообщаться или поиграть вместе! ヾ(≧▽≦*)o';
             document.getElementById('interests-title').textContent = 'ИНТЕРЕСЫ';
-            document.getElementById('interests-content').textContent = '🌸 MEOW :3';
-            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2';
-            document.getElementById('music').textContent = '🎵 Меломан слушаю все';
+            document.getElementById('interests-content').textContent = '🌸 MEOW :3 ~(=^･ω･^)ﾉ';
+            document.getElementById('games').textContent = '🎮 CS2, DOTA2, GMOD, TF2 ♪(´▽｀)';
+            document.getElementById('music').textContent = '🎵 Меломан слушаю все ~ ♫';
             document.getElementById('about-title').textContent = 'О СЕБЕ';
-            document.getElementById('age').textContent = '18 лет';
-            document.getElementById('tech').textContent = 'Люблю технику (пк,телефоны, т.п)';
-            document.getElementById('collection').textContent = 'Коллекционирую милые вещи';
+            document.getElementById('age').textContent = '18 лет ✧◝(⁰▿⁰)◜✧';
+            document.getElementById('tech').textContent = 'Люблю технику (пк,телефоны, т.п) (￣ω￣)';
+            document.getElementById('collection').textContent = 'Коллекционирую милые вещи ₍˄·͈༝·͈˄₎◞';
         }
+
+        // Запускаем создание сердечек после загрузки
+        window.addEventListener('load', createHearts);
     </script>
 </body>
 </html>
